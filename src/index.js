@@ -10,8 +10,8 @@
 // Enfim, o strict mode te ajuda a escrever um código mais seguro e consistente
 'use strict'
 
-// const api = require('./server')
-// const PORT = 3000
+const api = require('./server')
+const PORT = 3000
 
 
 // ********** EXPLICAÇÃO TEÓRICA SOBRE FUNÇÕES ANÔNIMAS E ARROW ********** //
@@ -48,7 +48,7 @@
 
 // DEVE INSTALAR A DEPENDÊNCIA 'nodemon' COM O COMANDO: npm i nodemon
 // DEVE AJUSTAR O SCRIPT 'start' NO ARQUIVO 'package.json'
-// api.listen(
-//   PORT,
-//   () => console.info(`Servidor rodando na porta ${PORT} em: http://localhost:${PORT}`)
-// )
+api.listen(
+  PORT,
+  () => console.info(`Servidor rodando... http://localhost:${PORT}`)
+)

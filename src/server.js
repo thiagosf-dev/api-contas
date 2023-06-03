@@ -1,36 +1,38 @@
 'use strict'
 
-// DEVE INSTALAR A DEPENDÊNCIA 'express' COM O COMANDO: npm i express
 const express = require('express')
-
-// DEVE INSTALAR A DEPENDÊNCIA 'cors' COM O COMANDO: npm i cors
-// const cors = require('cors')
+const cors = require('cors')
+const db = require('mongoose')
 
 const api = express()
-const PORT = 3000
 
 api.use(express.json())
+api.use(express.urlencoded({ extended: true }))
+api.use(cors({ origin: '*' }))
 
-// api.use(cors({
-//   origin: '*'
-// }))
+const uriMongo = 'mongodb+srv://admin:admin@cluster0.wemyr6w.mongodb.net/api-conta?retryWrites=true&w=majority'
+
+db
+  .connect(uriMongo,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
+  .then(() => console.log('Banco conectado...'))
+  .catch(err => console.error('ERRO ao tentar conecatr no banco', err));
 
 api.get("/", (request, response) => {
   response.json({
+    api: 'API Contas',
     status: 'OK',
     message: 'API rodando com sucesso'
   })
-})
+});
 
-// const contas = require("./contas")
+// endpoints
+const contaRoute = require('./routes/ContaRoute');
+api.use('/conta', contaRoute);
+api.use('/contas', contaRoute);
 
-// api.get("/contas", (request, response) => {
-//   response.json(contas)
-// })
-
-api.listen(
-  PORT,
-  () => console.info(`Servidor rodando na porta ${PORT} em: http://localhost:${PORT}`)
-)
-
-// module.exports = api
+module.exports = api;
