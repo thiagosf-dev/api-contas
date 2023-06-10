@@ -4,11 +4,11 @@ const express = require('express');
 const router = express.Router();
 
 // const { verificarToken } = require('../middlewares/AutenticacaoMiddleware');
-const contaService = require('../services/ContaService');
+const usuarioService = require('../services/UsuarioService');
 
 router.post('/', async (req, res) => {
   try {
-    const resposta = await contaService.cadastrar(req.body);
+    const resposta = await usuarioService.cadastrar(req.body);
     res.json(resposta);
   } catch (error) {
     console.error(error);
@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const resposta = await contaService.listar();
+    const resposta = await usuarioService.listar();
     res.json(resposta);
   } catch (error) {
     console.error(error);
@@ -27,13 +27,13 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-  const resposta = await contaService.buscarPorId(req.params.id);
+  const resposta = await usuarioService.buscarPorId(req.params.id);
   res.json(resposta);
 });
 
 router.put('/:id', async (req, res) => {
   try {
-    const resposta = await contaService.editar(
+    const resposta = await usuarioService.editar(
       req.params.id,
       req.body
     );
@@ -46,7 +46,7 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   try {
-    const resposta = await contaService.excluir(req.params.id)
+    const resposta = await usuarioService.excluir(req.params.id)
     return res.json(resposta);
   } catch (error) {
     console.error(error);

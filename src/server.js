@@ -1,38 +1,28 @@
 'use strict'
 
-const express = require('express')
-const cors = require('cors')
-const db = require('mongoose')
+const express = require('express');
+const cors = require('cors');
+const db = require('./db').connect();
 
-const api = express()
+const api = express();
 
-api.use(express.json())
-api.use(express.urlencoded({ extended: true }))
-api.use(cors({ origin: '*' }))
+api.use(express.json());
+api.use(express.urlencoded({ extended: true }));
+api.use(cors({ origin: '*' }));
 
-const uriMongo = 'mongodb+srv://admin:admin@cluster0.wemyr6w.mongodb.net/api-conta?retryWrites=true&w=majority'
+// ENDPOINTS - ROTAS
+const infoRoute = require('./routes/InfoRoute');
+api.use('/', infoRoute);
 
-db
-  .connect(uriMongo,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
-  .then(() => console.log('Banco conectado...'))
-  .catch(err => console.error('ERRO ao tentar conecatr no banco', err));
-
-api.get("/", (request, response) => {
-  response.json({
-    api: 'API Contas',
-    status: 'OK',
-    message: 'API rodando com sucesso'
-  })
-});
-
-// endpoints
 const contaRoute = require('./routes/ContaRoute');
-api.use('/conta', contaRoute);
 api.use('/contas', contaRoute);
+api.use('/conta', contaRoute);
+
+const usuarioRoute = require('./routes/UsuarioRoute');
+api.use('/usuarios', usuarioRoute);
+api.use('/usuario', usuarioRoute);
+
+const loginRoute = require('./routes/LoginRoute');
+api.use('/login', loginRoute);
 
 module.exports = api;

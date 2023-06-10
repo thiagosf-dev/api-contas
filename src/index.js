@@ -10,8 +10,10 @@
 // Enfim, o strict mode te ajuda a escrever um código mais seguro e consistente
 'use strict'
 
-const api = require('./server')
-const PORT = 3000
+require('dotenv').config();
+const api = require('./server');
+
+const PORT = process.env.PORT || 3000;
 
 
 // ********** EXPLICAÇÃO TEÓRICA SOBRE FUNÇÕES ANÔNIMAS E ARROW ********** //
@@ -51,4 +53,4 @@ const PORT = 3000
 api.listen(
   PORT,
   () => console.info(`Servidor rodando... http://localhost:${PORT}`)
-)
+);
