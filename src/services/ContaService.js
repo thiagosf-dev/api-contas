@@ -8,23 +8,25 @@ module.exports = {
       const contasCadastradas = await contaModel.find();
       return contasCadastradas;
     } catch (error) {
-      throw {
+      console.error(error);
+      return {
         message: error.message,
         status: 500,
         success: false,
-      }
+      };
     }
   },
 
   buscarPorId: async (id) => {
     try {
-      return await contaModel.findOne({ _id: id }).populate('usuario').exec();
+      return await contaModel.findOne({ _id: id });
     } catch (error) {
-      throw {
+      console.error(error);
+      return {
         message: error.message,
         status: 500,
         success: false,
-      }
+      };
     }
   },
 
@@ -33,11 +35,12 @@ module.exports = {
       const novaConta = await contaModel.create(conta);
       return novaConta;
     } catch (error) {
-      throw {
+      console.error(error);
+      return {
         message: error.message,
         status: 404,
         success: false,
-      }
+      };
     }
   },
 
@@ -62,11 +65,11 @@ module.exports = {
       return contaAtualizada;
     } catch (error) {
       console.error(error);
-      throw {
+      return {
         message: error.message,
         status: 500,
         success: false,
-      }
+      };
     }
   },
 
@@ -88,11 +91,11 @@ module.exports = {
       }
     } catch (error) {
       console.error(error);
-      throw {
+      return {
         message: error.message,
         status: 500,
         success: false,
-      }
+      };
     }
   },
 
@@ -102,11 +105,11 @@ module.exports = {
       return contas;
     } catch (error) {
       console.error(error);
-      throw {
+      return {
         message: error.message,
         status: 500,
         success: false,
-      }
+      };
     }
   }
 };

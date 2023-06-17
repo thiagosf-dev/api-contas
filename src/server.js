@@ -4,6 +4,8 @@ const express = require('express');
 const cors = require('cors');
 const db = require('./db').connect();
 
+const AutenticacaoMiddleware = require('./middlewares/AutenticacaoMiddleware');
+
 const api = express();
 
 api.use(express.json());
@@ -15,8 +17,8 @@ const infoRoute = require('./routes/InfoRoute');
 api.use('/', infoRoute);
 
 const contaRoute = require('./routes/ContaRoute');
-api.use('/contas', contaRoute);
-api.use('/conta', contaRoute);
+api.use('/contas', AutenticacaoMiddleware.verificarToken, contaRoute);
+api.use('/conta', AutenticacaoMiddleware.verificarToken, contaRoute);
 
 const usuarioRoute = require('./routes/UsuarioRoute');
 api.use('/usuarios', usuarioRoute);
