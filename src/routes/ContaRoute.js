@@ -5,8 +5,9 @@ const router = express.Router();
 
 // const { verificarToken } = require('../middlewares/AutenticacaoMiddleware');
 const contaService = require('../services/ContaService');
+const AutenticacaoMiddleware = require('../middlewares/AutenticacaoMiddleware');
 
-router.post('/', async (req, res) => {
+router.post('/', AutenticacaoMiddleware.verificarToken, async (req, res) => {
   try {
     const resposta = await contaService.cadastrar(req.body);
     res.json(resposta);
@@ -16,7 +17,17 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/', async (req, res) => {
+// router.post('/', async (req, res) => {
+//   try {
+//     const resposta = await contaService.cadastrar(req.body);
+//     res.json(resposta);
+//   } catch (error) {
+//     console.error(error);
+//     res.json(error);
+//   }
+// });
+
+router.get('/', AutenticacaoMiddleware.verificarToken, async (req, res) => {
   try {
     const resposta = await contaService.listar();
     res.json(resposta);
@@ -53,5 +64,10 @@ router.delete('/:id', async (req, res) => {
     res.json(error);
   }
 });
+
+router.get('/usuario/:id', async (req, res) => {
+  const resposta = await contaService.buscarPorUsuarioId(req.params.id);
+  res.json(resposta);
+})
 
 module.exports = router;

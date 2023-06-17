@@ -18,7 +18,7 @@ module.exports = {
 
   buscarPorId: async (id) => {
     try {
-      return await contaModel.findOne({ _id: id });
+      return await contaModel.findOne({ _id: id }).populate('usuario').exec();
     } catch (error) {
       throw {
         message: error.message,
@@ -95,4 +95,18 @@ module.exports = {
       }
     }
   },
+
+  buscarPorUsuarioId: async (usuarioId) => {
+    try {
+      const contas = contaModel.find({ usuario: usuarioId });
+      return contas;
+    } catch (error) {
+      console.error(error);
+      throw {
+        message: error.message,
+        status: 500,
+        success: false,
+      }
+    }
+  }
 };

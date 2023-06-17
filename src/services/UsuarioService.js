@@ -9,11 +9,12 @@ module.exports = {
       const usuariosCadastrados = await usuarioModel.find();
       return usuariosCadastrados;
     } catch (error) {
-      throw {
+      console.error(error);
+      return {
         message: error.message,
         status: 500,
         success: false,
-      }
+      };
     }
   },
 
@@ -21,30 +22,27 @@ module.exports = {
     try {
       return await usuarioModel.findOne({ _id: id });
     } catch (error) {
-      throw {
+      console.error(error);
+      return {
         message: error.message,
         status: 500,
         success: false,
-      }
+      };
     }
   },
 
   cadastrar: async (usuario) => {
     try {
-      usuario.senha = await bcrypt.hash(
-        usuario.senha,
-        10
-      );
+      usuario.senha = await bcrypt.hash(usuario.senha, 10);
 
-      const novoUsuario = await usuarioModel.create(usuario);
-
-      return novoUsuario;
+      return await usuarioModel.create(usuario);
     } catch (error) {
-      throw {
+      console.error(error);
+      return {
         message: error.message,
-        status: 404,
+        status: 500,
         success: false,
-      }
+      };
     }
   },
 
@@ -69,11 +67,11 @@ module.exports = {
       return usuarioAtualizado;
     } catch (error) {
       console.error(error);
-      throw {
+      return {
         message: error.message,
         status: 500,
         success: false,
-      }
+      };
     }
   },
 
@@ -95,11 +93,11 @@ module.exports = {
       }
     } catch (error) {
       console.error(error);
-      throw {
+      return {
         message: error.message,
         status: 500,
         success: false,
-      }
+      };
     }
   },
 };

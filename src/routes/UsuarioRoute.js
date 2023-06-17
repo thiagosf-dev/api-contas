@@ -3,55 +3,26 @@
 const express = require('express');
 const router = express.Router();
 
-// const { verificarToken } = require('../middlewares/AutenticacaoMiddleware');
 const usuarioService = require('../services/UsuarioService');
 
 router.post('/', async (req, res) => {
-  try {
-    const resposta = await usuarioService.cadastrar(req.body);
-    res.json(resposta);
-  } catch (error) {
-    console.error(error);
-    res.json(error);
-  }
+  res.json(await usuarioService.cadastrar(req.body));
 });
 
 router.get('/', async (req, res) => {
-  try {
-    const resposta = await usuarioService.listar();
-    res.json(resposta);
-  } catch (error) {
-    console.error(error);
-    res.json(error);
-  }
+  res.json(await usuarioService.listar());
 });
 
 router.get('/:id', async (req, res) => {
-  const resposta = await usuarioService.buscarPorId(req.params.id);
-  res.json(resposta);
+  res.json(await usuarioService.buscarPorId(req.params.id));
 });
 
 router.put('/:id', async (req, res) => {
-  try {
-    const resposta = await usuarioService.editar(
-      req.params.id,
-      req.body
-    );
-    return res.json(resposta);
-  } catch (error) {
-    console.error(error);
-    res.json(error);
-  }
+  return res.json(await usuarioService.editar(req.params.id, req.body));
 });
 
 router.delete('/:id', async (req, res) => {
-  try {
-    const resposta = await usuarioService.excluir(req.params.id)
-    return res.json(resposta);
-  } catch (error) {
-    console.error(error);
-    res.json(error);
-  }
+  return res.json(await usuarioService.excluir(req.params.id));
 });
 
 module.exports = router;

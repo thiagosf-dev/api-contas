@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const contaSchema = new Schema(
+const usuarioSchema = new Schema(
   {
     nome: {
       type: String,
@@ -17,16 +17,23 @@ const contaSchema = new Schema(
     senha: {
       type: String,
       required: true,
+      select: false,
     },
     tipo: {
       type: String,
       required: true,
       enum: ['admin', 'user'],
     },
+    contas: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Conta'
+      }
+    ],
   },
   {
     timestamps: true,
   },
 );
 
-module.exports = mongoose.model('UsuarioModel', contaSchema);
+module.exports = mongoose.model('UsuarioModel', usuarioSchema);

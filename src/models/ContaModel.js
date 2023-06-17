@@ -27,6 +27,11 @@ const contaSchema = new Schema(
       required: true,
       enum: ['Despesa', 'Receita'],
     },
+    usuario: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Usuario',
+      required: true,
+    },
   },
   {
     timestamps: true,

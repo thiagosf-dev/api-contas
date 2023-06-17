@@ -2,6 +2,7 @@
 
 const bcrypt = require('bcrypt');
 const loginModel = require('../models/UsuarioModel');
+const { gerarToken } = require('../utils/TokenUtil');
 
 module.exports = {
   autenticar: async (usuario) => {
@@ -31,11 +32,13 @@ module.exports = {
         };
       }
 
+      const token = gerarToken(JSON.stringify(usuarioEncontrado));
+
       return {
         message: 'Login realizado com sucesso',
         status: 200,
         success: true,
-        usuario: usuarioEncontrado,
+        token,
       };
     } catch (error) {
       return {
