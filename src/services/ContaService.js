@@ -1,11 +1,12 @@
-'use strict'
+"use strict";
 
-const contaModel = require('../models/ContaModel');
+const contaModel = require("../models/ContaModel");
 
 module.exports = {
   listar: async () => {
     try {
-      const contasCadastradas = await contaModel.find();
+      // const contasCadastradas = await contaModel.find();
+      const contasCadastradas = await contaModel.find().populate('usuario');
       return contasCadastradas;
     } catch (error) {
       console.error(error);
@@ -46,21 +47,29 @@ module.exports = {
 
   editar: async (id, novasInformacoes) => {
     try {
-      let contaEncontrada = await contaModel.findById(id);
-
-      if (!contaEncontrada) {
-        throw {
-          message: 'Não foi possível localizar a conta',
-          status: 404,
-          success: false,
-        }
-      }
+      // let contaEncontrada = await contaModel.find({ _id: id });
+      // console.log("contaEncontrada :>> ", contaEncontrada);
+      // if (!contaEncontrada) {
+      //   throw {
+      //     message: "Não foi possível localizar a conta",
+      //     status: 404,
+      //     success: false,
+      //   };
+      // }
 
       const contaAtualizada = await contaModel.findByIdAndUpdate(
         id,
         { ...novasInformacoes },
         { new: true }
       );
+
+      if (!contaAtualizada) {
+        throw {
+          message: "Não foi possível localizar a conta",
+          status: 404,
+          success: false,
+        };
+      }
 
       return contaAtualizada;
     } catch (error) {
@@ -79,16 +88,16 @@ module.exports = {
 
       if (!contaExcluida) {
         throw {
-          message: 'Não foi possível locallizar a conta',
+          message: "Não foi possível locallizar a conta",
           status: 404,
-        }
+        };
       }
 
       return {
-        message: 'Conta excluída com sucesso',
+        message: "Conta excluída com sucesso",
         status: 200,
         success: true,
-      }
+      };
     } catch (error) {
       console.error(error);
       return {
@@ -111,5 +120,5 @@ module.exports = {
         success: false,
       };
     }
-  }
+  },
 };

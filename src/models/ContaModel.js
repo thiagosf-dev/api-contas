@@ -29,7 +29,7 @@ const contaSchema = new Schema(
     },
     usuario: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Usuario',
+      ref: 'UsuarioModel',
       required: true,
     },
   },

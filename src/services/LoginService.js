@@ -1,13 +1,13 @@
 'use strict'
 
 const bcrypt = require('bcrypt');
-const loginModel = require('../models/UsuarioModel');
+const usuarioModel = require('../models/UsuarioModel');
 const { gerarToken } = require('../utils/TokenUtil');
 
 module.exports = {
   autenticar: async (usuario) => {
     try {
-      let usuarioEncontrado = await loginModel.findOne({
+      let usuarioEncontrado = await usuarioModel.findOne({
         email: usuario.email,
       });
 

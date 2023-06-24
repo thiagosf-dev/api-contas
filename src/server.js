@@ -17,8 +17,8 @@ const infoRoute = require('./routes/InfoRoute');
 api.use('/', infoRoute);
 
 const contaRoute = require('./routes/ContaRoute');
-api.use('/contas', AutenticacaoMiddleware.verificarToken, contaRoute);
-api.use('/conta', AutenticacaoMiddleware.verificarToken, contaRoute);
+api.use('/contas', contaRoute);
+api.use('/conta', contaRoute);
 
 const usuarioRoute = require('./routes/UsuarioRoute');
 api.use('/usuarios', usuarioRoute);

@@ -27,7 +27,7 @@ const usuarioSchema = new Schema(
     contas: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Conta'
+        ref: 'ContaModel'
       }
     ],
   },
