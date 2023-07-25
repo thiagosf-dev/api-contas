@@ -17,7 +17,7 @@ const AutenticacaoMiddleware = require("../middlewares/AutenticacaoMiddleware");
 //   }
 // });
 
-router.post("/", AutenticacaoMiddleware.verificarToken, async (req, res) => {
+router.post("/", async (req, res) => {
   res.json(await contaService.cadastrar(req.body));
 });
 

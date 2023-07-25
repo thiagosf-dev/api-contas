@@ -14,8 +14,8 @@ module.exports = {
       if (!usuarioEncontrado) {
         return {
           message: 'Credenciais inválidas',
-          status: 200,
-          success: true,
+          status: 401,
+          success: false,
         };
       }
 
@@ -27,8 +27,8 @@ module.exports = {
       if (!match) {
         return {
           message: 'Credenciais inválidas',
-          status: 200,
-          success: true,
+          status: 401,
+          success: false,
         };
       }
 

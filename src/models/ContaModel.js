@@ -11,7 +11,7 @@ const contaSchema = new Schema(
     },
     estaPaga: {
       type: Boolean,
-      required: true,
+      required: false,
       default: false,
     },
     valor: {
@@ -20,17 +20,17 @@ const contaSchema = new Schema(
     },
     dataVencimento: {
       type: Date,
-      required: true,
+      required: false,
     },
     tipo: {
       type: String,
-      required: true,
+      required: false,
       enum: ['Despesa', 'Receita'],
     },
     usuario: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'UsuarioModel',
-      required: true,
+      required: false,
     },
   },
   {

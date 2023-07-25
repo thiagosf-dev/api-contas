@@ -9,7 +9,7 @@ router.post("", async (req, res) => {
   const result = await loginService.autenticar(req.body);
 
   if (!result.success) {
-    return res.status(404).json(result);
+    return res.status(result.status).json(result);
   }
 
   return res.json(result);
